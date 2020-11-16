@@ -22,8 +22,10 @@ config :bank_api, BankAPIWeb.Endpoint,
 config :logger, level: :warn
 
 # Configure commanded
-config :commanded,
-  event_store_adapter: Commanded.EventStore.Adapters.InMemory
 
-config :commanded, Commanded.EventStore.Adapters.InMemory,
+config :bank_api, BankAPI.EventStore,
+  event_store: [
+    adapter: Commanded.EventStore.Adapters.InMemory,
+    event_store: Commanded.EventStore.Adapters.InMemory
+  ],
   serializer: Commanded.Serialization.JsonSerializer

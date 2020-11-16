@@ -27,9 +27,8 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-# Configures Commanded event store adapter
-config :commanded,
-  event_store_adapter: Commanded.EventStore.Adapters.EventStore
+# Configure event store
+config :bank_api, event_stores: [BankAPI.EventStore]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

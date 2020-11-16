@@ -4,6 +4,12 @@ defmodule BankAPI.Application do
   @moduledoc false
 
   use Application
+  use Commanded.Application,
+    otp_app: :bank_api,
+    event_store: [
+      adapter: Commanded.EventStore.Adapters.EventStore,
+      event_store: BankAPI.EventStore
+    ]
 
   def start(_type, _args) do
     children = [
