@@ -4,26 +4,15 @@ defmodule BankAPI.Application do
   @moduledoc false
 
   use Application
-  use Commanded.Application,
-    otp_app: :bank_api,
-    event_store: [
-      adapter: Commanded.EventStore.Adapters.EventStore,
-      event_store: BankAPI.EventStore
-    ]
 
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
       BankAPI.Repo,
-      # Start the Telemetry supervisor
       BankAPIWeb.Telemetry,
-      # Start the PubSub system
       {Phoenix.PubSub, name: BankAPI.PubSub},
-      # Start the Endpoint (http/https)
-      BankAPIWeb.Endpoint
-      # Start a worker by calling: BankAPI.Worker.start_link(arg)
-      # {BankAPI.Worker, arg}
-    ]
+      BankAPIWeb.Endpoint,
+      BankAPI.Accounts.Supervisor
+    ] ++ []
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
