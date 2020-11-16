@@ -20,3 +20,10 @@ config :bank_api, BankAPIWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+# Configure commanded
+config :commanded,
+  event_store_adapter: Commanded.EventStore.Adapters.InMemory
+
+config :commanded, Commanded.EventStore.Adapters.InMemory,
+  serializer: Commanded.Serialization.JsonSerializer

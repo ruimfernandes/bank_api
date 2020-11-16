@@ -55,3 +55,17 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Configure event store
+config :eventstore,
+  column_data_type: "jsonb"
+
+config :eventstore, EventStore.Storage,
+  serializer: EventStore.JsonbSerializer,
+  types: EventStore.PostgresTypes,
+  username: "postgres",
+  password: "postgres",
+  database: "bank_api_eventstore_dev",
+  hostname: "localhost",
+  pool_size: 10,
+  pool_overflow: 5
