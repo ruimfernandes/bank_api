@@ -4,8 +4,6 @@ defmodule BankAPI.Accounts.Supervisor do
   alias BankAPI.Accounts
   alias BankAPI.Events
 
-  use Supervisor
-
   def start_link(arg) do
     Supervisor.start_link(__MODULE__, arg, name: __MODULE__)
   end
