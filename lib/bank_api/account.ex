@@ -30,10 +30,7 @@ defmodule BankAPI.Accounts do
         :ok ->
           {
             :ok,
-            %Account{
-              uuid: account_uuid,
-              current_balance: changeset.changes.initial_balance
-            }
+            get_account(account_uuid)
           }
 
         reply ->
