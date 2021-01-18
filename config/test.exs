@@ -22,10 +22,11 @@ config :bank_api, BankAPIWeb.Endpoint,
 config :logger, level: :warn
 
 # Configure commanded
-
-config :bank_api, BankAPI.EventStore,
-  event_store: [
-    adapter: Commanded.EventStore.Adapters.InMemory,
-    event_store: Commanded.EventStore.Adapters.InMemory
-  ],
-  serializer: Commanded.Serialization.JsonSerializer
+config :commanded_eventstore_adapter, TestEventStore,
+  serializer: Commanded.Serialization.JsonSerializer,
+  username: "postgres",
+  password: "postgres",
+  database: "bank_api_eventstore_test",
+  hostname: "localhost",
+  pool_size: 1,
+  pool_overflow: 0

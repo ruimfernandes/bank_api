@@ -19,6 +19,17 @@ config :bank_api, BankAPIWeb.Endpoint,
   pubsub_server: BankAPI.PubSub,
   live_view: [signing_salt: "XdDmydk4"]
 
+config :bank_api, BankAPI.EventStore,
+  serializer: Commanded.Serialization.JsonSerializer,
+  username: "postgres",
+  password: "postgres",
+  database: "bank_api_eventstore",
+  hostname: "localhost",
+  pool_size: 10
+
+# Configure event store
+config :bank_api, event_stores: [BankAPI.EventStore]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
@@ -26,9 +37,6 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
-
-# Configure event store
-config :bank_api, event_stores: [BankAPI.EventStore]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
