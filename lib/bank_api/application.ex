@@ -6,13 +6,14 @@ defmodule BankAPI.Application do
   use Application
 
   def start(_type, _args) do
-    children = [
-      BankAPI.Repo,
-      BankAPIWeb.Telemetry,
-      {Phoenix.PubSub, name: BankAPI.PubSub},
-      BankAPIWeb.Endpoint,
-      BankAPI.Accounts.Supervisor
-    ] ++ []
+    children =
+      [
+        BankAPI.Repo,
+        BankAPIWeb.Telemetry,
+        {Phoenix.PubSub, name: BankAPI.PubSub},
+        BankAPIWeb.Endpoint,
+        BankAPI.Accounts.Supervisor
+      ] ++ []
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
