@@ -2,11 +2,17 @@ defmodule BankAPI.Router do
   use Commanded.Commands.Router, application: BankAPI.Events
 
   alias BankAPI.Accounts.Aggregates.Account
-  alias BankAPI.Accounts.Commands.{OpenAccount, CloseAccount}
+
+  alias BankAPI.Accounts.Commands.{
+    OpenAccount,
+    CloseAccount,
+    DepositIntoAccount,
+    WithdrawFromAccount
+  }
 
   middleware(BankAPI.Middleware.ValidateCommand)
 
-  dispatch([OpenAccount, CloseAccount],
+  dispatch([OpenAccount, CloseAccount, DepositIntoAccount, WithdrawFromAccount],
     to: Account,
     identity: :account_uuid
   )

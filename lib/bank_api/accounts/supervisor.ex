@@ -13,7 +13,8 @@ defmodule BankAPI.Accounts.Supervisor do
     children = [
       Events,
       Accounts.Projectors.AccountOpened,
-      Accounts.Projectors.AccountClosed
+      Accounts.Projectors.AccountClosed,
+      Accounts.Projectors.DepositsAndWithdrawals
     ]
 
     Supervisor.init(children, strategy: :one_for_one)

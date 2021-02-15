@@ -7,7 +7,14 @@ defmodule BankAPI.Accounts do
 
   alias BankAPI.Repo
   alias BankAPI.Router
-  alias BankAPI.Accounts.Commands.{CloseAccount, OpenAccount}
+
+  alias BankAPI.Accounts.Commands.{
+    CloseAccount,
+    OpenAccount,
+    DepositIntoAccount,
+    WithdrawFromAccount
+  }
+
   alias BankAPI.Accounts.Projections.Account
 
   def uuid_regex do
@@ -51,4 +58,44 @@ defmodule BankAPI.Accounts do
   end
 
   def open_account(_params), do: {:error, :bad_command}
+
+  def deposit(id, amount) do
+    dispatch_result =
+      %DepositIntoAccount{
+        account_uuid: id,
+        deposit_amount: amount
+      }
+      |> Router.dispatch(consistency: :strong)
+
+    case dispatch_result do
+      :ok ->
+        {
+          :ok,
+          Repo.get!(Account, id)
+        }
+
+      reply ->
+        reply
+    end
+  end
+
+  def withdraw(id, amount) do
+    dispatch_result =
+      %WithdrawFromAccount{
+        account_uuid: id,
+        withdraw_amount: amount
+      }
+      |> Router.dispatch(consistency: :strong)
+
+    case dispatch_result do
+      :ok ->
+        {
+          :ok,
+          Repo.get!(Account, id)
+        }
+
+      reply ->
+        reply
+    end
+  end
 end
