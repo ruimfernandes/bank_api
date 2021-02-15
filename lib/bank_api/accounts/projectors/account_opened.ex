@@ -12,11 +12,15 @@ defmodule BankAPI.Accounts.Projectors.AccountOpened do
   def handle(%AccountOpened{} = event, _metadata) do
     case %Account{
            uuid: event.account_uuid,
-           current_balance: event.initial_balance
+           current_balance: event.initial_balance,
+           status: Account.status().open
          }
          |> Repo.insert(on_conflict: :nothing) do
-      {:ok, _order} -> :ok
-      error -> error
+      {:ok, _account} ->
+        :ok
+
+      error ->
+        error
     end
   end
 end
