@@ -9,11 +9,9 @@ defmodule BankAPI.Accounts.Projectors.DepositsAndWithdrawals do
   alias BankAPI.Accounts
   alias BankAPI.Accounts.Events.{DepositedIntoAccount, WithdrawnFromAccount}
   alias BankAPI.Accounts.Projections.Account
-  alias Ecto.{Changeset, Multi}
+  alias Ecto.Changeset
 
   def handle(%DepositedIntoAccount{} = event, _metadata) do
-    IO.inspect("projector!")
-
     with {:ok, %Account{} = account} <- Accounts.get_account(event.account_uuid) do
       case account
            |> Changeset.change(current_balance: event.new_current_balance)
@@ -29,9 +27,6 @@ defmodule BankAPI.Accounts.Projectors.DepositsAndWithdrawals do
 
   def handle(%WithdrawnFromAccount{} = event, _metadata) do
     with {:ok, %Account{} = account} <- Accounts.get_account(event.account_uuid) do
-      IO.inspect("account")
-      IO.inspect(account)
-
       case account
            |> Changeset.change(current_balance: event.new_current_balance)
            |> Repo.update() do

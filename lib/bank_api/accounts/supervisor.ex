@@ -14,7 +14,8 @@ defmodule BankAPI.Accounts.Supervisor do
       Events,
       Accounts.Projectors.AccountOpened,
       Accounts.Projectors.AccountClosed,
-      Accounts.Projectors.DepositsAndWithdrawals
+      Accounts.Projectors.DepositsAndWithdrawals,
+      Accounts.ProcessManagers.TransferMoney
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
