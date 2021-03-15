@@ -38,36 +38,4 @@ defmodule BankAPI.Accounts.Projectors.DepositsAndWithdrawals do
       end
     end
   end
-
-  # project(%DepositedIntoAccount{} = evt, _metadata, fn multi ->
-  #   with {:ok, %Account{} = account} <- Accounts.get_account(evt.account_uuid) do
-  #     Multi.update(
-  #       multi,
-  #       :account,
-  #       Changeset.change(
-  #         account,
-  #         current_balance: evt.new_current_balance
-  #       )
-  #     )
-  #   else
-  #     # ignore when this happens
-  #     _ -> multi
-  #   end
-  # end)
-
-  # project(%WithdrawnFromAccount{} = evt, _metadata, fn multi ->
-  #   with {:ok, %Account{} = account} <- Accounts.get_account(evt.account_uuid) do
-  #     Multi.update(
-  #       multi,
-  #       :account,
-  #       Changeset.change(
-  #         account,
-  #         current_balance: evt.new_current_balance
-  #       )
-  #     )
-  #   else
-  #     # ignore when this happens
-  #     _ -> multi
-  #   end
-  # end)
 end
